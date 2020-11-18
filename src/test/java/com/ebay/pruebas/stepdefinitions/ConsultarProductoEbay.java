@@ -37,7 +37,6 @@ public class ConsultarProductoEbay {
 
 	@Entonces("^valido que aparezca el mensaje  (.*)$")
 	public void validoQueAparezcaElMensaje(String arg1) {
-		
 
 	}
 

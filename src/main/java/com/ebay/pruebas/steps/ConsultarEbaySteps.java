@@ -1,4 +1,5 @@
 package com.ebay.pruebas.steps;
+
 //package com.ebay.pruebas.steps;
 import com.ebay.pruebas.pageobjects.ConsultarEbayPageObject;
 
@@ -6,45 +7,44 @@ import net.thucydides.core.annotations.Step;
 import com.ebay.pruebas.Utils.*;
 
 public class ConsultarEbaySteps {
-	
 
 	ManejoExceptions excepciones = new ManejoExceptions();
+	EscribirExcel escribirEnExcel = new EscribirExcel();
 	ConsultarEbayPageObject ConsultarEbay = new ConsultarEbayPageObject();
 
 	@Step
-	
+
 	public void manejoDeExcepciones() {
-		
-		String msgerror= null;
-		msgerror = excepciones.obtenerEstadoConexion();
-		if(msgerror=="Offline") {
-			System.out.println(msgerror);
-		}
-	}	
-			
+		excepciones.obtenerEstadoConexion();
+	}
+
 	@Step
-	
+
 	public void abrirAplicacionDeEbay() {
 		ConsultarEbay.open();
 	}
+
 	@Step
 	public void escribirBuscar(String buscar) {
-		ConsultarEbay.escribirArticulo(buscar);  
+		ConsultarEbay.escribirArticulo(buscar);
 	}
+
 	@Step
 	public void clickEnBuscar() {
 		ConsultarEbay.clickEnBuscar();
 	}
+
 	@Step
 	public void obtenerMensaje() {
 		ConsultarEbay.obtenerTextoDeMensaje();
-		
 	}
+
 	@Step
 	public void clickEnResultado() {
-		ConsultarEbay.clickEnResultado();
+		escribirEnExcel.encabezadoExcel();
+		escribirEnExcel.ingresarInformacio(ConsultarEbay.clickEnResultado(),"",ConsultarEbay.obtenerPrecio());
+				
 	}
-	
 	@Step
 	public void clickEnAgregar() {
 		ConsultarEbay.clickEnAgregar();
@@ -55,5 +55,3 @@ public class ConsultarEbaySteps {
 		ConsultarEbay.clickCompletar();
 	}
 }
-
-

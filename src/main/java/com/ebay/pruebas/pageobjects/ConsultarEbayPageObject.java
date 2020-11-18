@@ -12,15 +12,19 @@ import net.thucydides.core.annotations.DefaultUrl;
 
 public class ConsultarEbayPageObject extends PageObject {
 
-	By txtArticulo =  By.name("_nkw");
-	By btnBuscar =  By.id("gh-btn");
-	By txtMensaje =  By.xpath("//h1[contains(text(),' resultados para ')]");
-	By btnResultado = By.xpath("//h3[contains(text(),'Bicicleta de montaña/bicicleta nueva velocidad ® hombres/mujeres neumático grasa Marcos MTB 26\" Completo suspensi')]");
-	By txtPrecio = By.id("mm-saleDscPrc"); 
-	By txtContenido =By.xpath("//*[@id=\"content1\"]/p[1]/span[2]/text()");
+	By txtArticulo = By.name("_nkw");
+	By btnBuscar = By.id("gh-btn");
+	By txtMensaje = By.xpath("//h1[contains(text(),' resultados para ')]");
+	By txtPrecio = By.xpath("//span[normalize-space()='COP $1 916 606.63']");
+	By btnResultado = By.xpath("//*[@id=\"srp-river-results\"]/ul/li[1]/div/div[2]/a");
+	By txtContenido = By.xpath("//*[@id=\"content1\"]/p[1]/span[2]");
 	By btnAgregar = By.id("isCartBtn_btn");
-	By btnCompletar =By.xpath("//*[@id=\"mainContent\"]/div/div[4]/div/div[1]/button");
-		
+	By btnCompletar = By.xpath("//*[@id=\"mainContent\"]/div/div[4]/div/div[1]/button");
+
+	String resultado = null;
+	String precio = null;
+	String contenido = null;
+
 	public void escribirArticulo(String buscar) {
 		getDriver().findElement(txtArticulo).sendKeys(buscar);
 	}
@@ -28,24 +32,30 @@ public class ConsultarEbayPageObject extends PageObject {
 	public void clickEnBuscar() {
 		getDriver().findElement(btnBuscar).click();
 	}
-	
+
 	public void obtenerTextoDeMensaje() {
-		String testResultado = getDriver().findElement(txtMensaje);
-		System.out.print(testResultado);
 		assertThat(getDriver().findElement(txtMensaje).isDisplayed(), Matchers.is(true));
 	}
-		
-	
-	
-	public void clickEnResultado() {
-		getDriver().findElement(btnResultado).click();
-		
+
+	public String obtenerPrecio() {
+		precio = getDriver().findElement(txtPrecio).getText();
+		System.out.print(precio);
+		return (precio);
 	}
+
+	public String clickEnResultado() {
+		resultado = getDriver().findElement(btnResultado).getText();
+		System.out.print(resultado);
+		getDriver().findElement(btnResultado).click();
+		return (resultado);
+	}
+
 	public void clickEnAgregar() {
 		getDriver().findElement(btnAgregar).click();
 	}
+
 	public void clickCompletar() {
 		getDriver().findElement(btnCompletar).click();
-	//	getDriver().quit();
+		// getDriver().quit();
 	}
 }

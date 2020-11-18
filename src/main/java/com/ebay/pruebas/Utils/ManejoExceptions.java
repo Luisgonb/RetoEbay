@@ -3,7 +3,6 @@ package com.ebay.pruebas.Utils;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
-
 import javax.swing.JOptionPane;
 
 
